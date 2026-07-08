@@ -66,19 +66,115 @@ class Usuario:
 
 
 def main():
-    livro1 = Livro("O Pequeno Principe", "Antoine de Saint-Exupéry", 1)
-    livro2 = Livro("Capitães da Areia", "Jorge Amado", 2)
+    livros = []
+    usuarios = []
+    
+    while True:
+        print("\n=====BIBLIOTECA=====")
+        print("1 - Cadastrar livro")
+        print("2 - Cadastrar usuário")
+        print("3 - Emprestar livro")
+        print("4 - Devolver livro")
+        print("5 - Listar livros emprestados")
+        print("6 - Sair")
 
-    usuario1 = Usuario("Clara", "2026001")
+        opcao = input("\nEscolha uma opção (1-6): ")
 
-    usuario1.emprestar_livro(livro1)
-    usuario1.emprestar_livro(livro2)
+        if opcao == "1":
+            titulo = input("\nTítulo: ")
+            autor = input("Autor: ")
+            id_livro = input("ID do livro: ")
 
-    usuario1.listar_livros_emprestados()
+            livro = Livro(titulo, autor, id_livro)
 
-    usuario1.devolver_livro(1)
+            livros.append(livro)
 
-    usuario1.listar_livros_emprestados()
+            print("\nLivro cadastrado com sucesso!\n")
+        elif opcao == "2":
+            nome = input("\nNome: ")
+            matricula = input("Matrícula: ")
+
+            usuario = Usuario(nome, matricula)
+
+            usuarios.append(usuario)
+
+            print("\nUsuário cadastrado com sucesso!\n")
+        elif opcao == "3":
+            if len(usuarios) == 0:
+                print("\nCadastre um usuário antes de realizar empréstimos.\n")
+                continue
+
+            if len(livros) == 0:
+                print("\nNão há livros cadastrados.\n")
+                continue
+
+            matricula = input("\nMatrícula do usuário: ")
+
+            usuario = None
+
+            for u in usuarios:
+                if u.get_matricula() == matricula:
+                    usuario = u
+
+            if usuario is None:
+                print("\nUsuário não encontrado.\n")
+                continue
+
+            id_livro = input("\nID do livro: ")
+
+            livro = None
+
+            for l in livros:
+                if l.get_id_livro() == id_livro:
+                    livro = l
+
+            if livro is None:
+                print("\nLivro não encontrado.\n")
+            else:
+                usuario.emprestar_livro(livro)
+        elif opcao == "4":
+             if len(usuarios) == 0:
+                print("\nCadastre um usuário antes de devolver livros.\n")
+                continue
+             
+             matricula = input("\nMatrícula do usuário: ")
+
+             usuario = None
+
+             for u in usuarios:
+                if u.get_matricula() == matricula:
+                    usuario = u
+
+             if usuario is None:
+                print("\nUsuário não encontrado.\n")
+                continue
+             
+             id_livro = input("\nID do livro: ")
+             usuario.devolver_livro(id_livro)
+
+        elif opcao == "5":
+            if len(usuarios) == 0:
+                print("\nCadastre um usuário antes de listar empréstimos.\n")
+                continue
+             
+            matricula = input("\nMatrícula do usuário: ")
+
+            usuario = None
+
+            for u in usuarios:
+                if u.get_matricula() == matricula:
+                    usuario = u
+
+            if usuario is None:
+                print("\nUsuário não encontrado.\n")
+            else:
+                usuario.listar_livros_emprestados()
+
+        elif opcao == "6":
+            print("\nEncerrando programa...\n")
+            break
+        else:
+            print("\nOpção inválida! Tente novamente.\n")
 
 if __name__=="__main__":
     main()
