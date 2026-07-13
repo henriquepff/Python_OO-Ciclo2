@@ -29,7 +29,7 @@ def main():
     resultado = criptografia.criptografar()
     print("\nFrase criptografada: ")
     print(resultado)
-    print()Tchau 
+    print()
 
 
 
