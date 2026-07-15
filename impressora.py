@@ -68,8 +68,7 @@ def main():
                     escolha = int(escolha)
                     if 1 <= escolha <= len(documentos):
                         impressora.imprimir(documentos[escolha - 1])
-                    else:1
-                    
+                    else:
                         print("\nNúmero inválido!\n")
                 else:
                     print("\nEntrada inválida! Digite um número.\n")
